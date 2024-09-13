@@ -1,0 +1,435 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.text-spacing {
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+/* Header */
+/* Style for the fixed navigation bar */
+header {
+  background-color: #333;
+  color: #fff;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for header buttons */
+header button, header .dropbtn {
+  background-color: #444;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 15px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+/* Style for the header title */
+header h3 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+header button:hover, header .dropbtn:hover {
+  background-color: #555;
+}
+
+/* Add New Word Button */
+#addWordBtn {
+  background-color: #4aa34a;
+}
+
+#addWordBtn:hover {
+  background-color: #3e8f3e;
+}
+
+/* Dropdown menu styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #444;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #555;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Main Body */
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+}
+
+/* Table Form */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 70%;
+  border: 1px solid #ddd;
+}
+
+.table-head {
+  background-color: #444;
+  color: #fff;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.options-head {
+  text-align: center;
+}
+
+.option-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Table Option Buttons */
+#editBtn {
+  background-color: #1b66d6;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#editBtn:hover {
+  background-color: #0f4b8f;
+}
+
+#practiceWordBtn {
+  background-color: #4aa34a;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#practiceWordBtn:hover {
+  background-color: #3e8f3e;
+}
+
+#deleteBtn {
+  background-color: #ec4a55;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#deleteBtn:hover {
+  background-color: #d33f43;
+}
+
+/* Modal */
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 2rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.modal .modal-backdrop {
+  background: rgba(0, 0, 0, 0.7);
+  height: 100%;
+  width: 100%;
+  position: fixed;
+}
+.modal .modal-content {
+  background: #fff;
+  border-radius: 5px;
+  max-width: 600px;
+  position: fixed;
+  top: -100%;
+  transition: all 0.6s ease;
+  z-index: 1000;
+}
+.modal .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding: 1.5rem;
+}
+.modal .modal-header .close-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  padding: 0;
+  margin: 0;
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  cursor: pointer;
+}
+.modal .modal-header .close-modal:hover {
+  color: #000;
+}
+.modal .modal-body {
+  padding: 1.5rem;
+}
+.modal .modal-footer {
+  border-top: 1px solid #ccc;
+  padding: 1rem;
+  text-align: right;
+}
+
+.modal.visible {
+  opacity: 1;
+  visibility: visible;
+}
+.modal.visible .modal-content {
+  top: 25%;
+}
+
+.modal-body input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.modal-body input:focus {
+  border: 1px solid #000;
+}
+
+/* Buttons & Inputs */
+#filterWordsPrompt {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#practiceArea {
+  display: none;
+}
+
+#startPracticeBtn {
+  background-color: #1b66d6;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#startPracticeBtn:hover {
+  background-color: #0f4b8f;
+}
+
+#startPracticeWordPrompt {
+  margin-top: 10px;
+}
+
+#filterWordStrength {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+#nextWordBtn {
+  background-color: #4aa34a;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#nextWordBtn:hover {
+  background-color: #3e8f3e;
+}
+
+#submitPracticeAnswerBtn {
+  background-color: #4aa34a;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#submitPracticeAnswerBtn:hover {
+  background-color: #3e8f3e;
+}
+
+#cancelWord {
+  background-color: #ec4a55;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#cancelWord:hover {
+  background-color: #d33f43;
+}
+
+#cancelIndividualPracticeWord, #cancelIndividualWord  {
+  background-color: #ec4a55;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#cancelIndividualPracticeWord:hover, #cancelIndividualWord:hover {
+  background-color: #d33f43;
+}
+
+#submitPracticeIndividualAnswerBtn {
+  background-color: #4aa34a;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#submitPracticeIndividualAnswerBtn:hover {
+  background-color: #3e8f3e;
+}
+
+#startIndividualPracticeBtn {
+  background-color: #1b66d6;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+#startIndividualPracticeBtn:hover {
+  background-color: #0f4b8f;
+}
+
+.saveButton {
+  background-color: #4aa34a;
+  color: #fff;
+  font-weight: 600;
+  border: none; 
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+.saveButton:hover {
+  background-color: #3e8f3e;
+}
+
+.cancelButton {
+  background-color: #ec4a55;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 8px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+.cancelButton:hover {
+  background-color: #d33f43;
+}
+
+#practiceWordPrompt {
+  display: inline-block;
+}
+
+#practiceFeedback {
+  margin-bottom: 10px;
+}
+
+/* CSS for Word Strength */
+.strong { color: green; }
+.moderate { color: orange; }
+.time-for-practice { color: purple; }
+.weak { color: red; }

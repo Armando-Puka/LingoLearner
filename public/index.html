@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LingoLearner</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <h3>LingoLearner</h3>
+
+        <div class="header-buttons">
+            <!-- Header Buttons -->
+            <button type="button" id="addWordBtn" onclick="openModal(addWordModal)">Add New Word</button>
+            <button type="button" id="practiceWordsBtn" onclick="openModal(practiceModal)">Practice</button>
+    
+             <!-- Manage Dropdown -->
+            <div class="dropdown">
+                <button type="button" class="dropbtn">Manage</button>
+                <div class="dropdown-content">
+                    <a href="#" id="exportWordsBtn">Export Words</a>
+                    <a href="#" id="fetchWordsBtn">Fetch Words</a>
+    
+                    <input type="file" id="fileInput" style="display:none">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Table to Display Words -->
+        <table>
+            <!-- Table Head -->
+             <thead class="table-head">
+                 <tr>
+                     <th>Word</th>
+                     <th>Word Strength</th>
+                     <th>Date Added</th>
+                     <th>Last Edited</th>
+                     <th>Last Practiced</th>
+                     <th>Next Review Date</th>
+                     <th class="options-head">Options</th>
+                 </tr>
+             </thead>
+
+            <!-- Table Body -->
+             <tbody>
+                 <tr>
+                     <td>test</td>
+                     <td>strong</td>
+                     <td>2018-09-10</td>
+                     <td>N/A</td>
+                     <td>N/A</td>
+                     <td>N/A</td>
+                     <td class="option-buttons">
+                         <button type="button" id="editBtn" onclick="openModal(editModal)">Edit</button>
+                         <button type="button" id="deleteBtn" onclick="deleteWord()">Delete</button>
+                         <button type="button" id="practiceWordBtn" onclick="openModal(practiceWordModal)">Practice Word</button>
+                     </td>
+                 </tr>
+             </tbody>
+        </table>
+    </main>
+
+    <!-- Add New Word Modal -->
+    <div class="modal" id="addWordModal">
+        <span class="modal-backdrop"></span>
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h2 class="modal-title">Add New Word</h2>
+                <span class="close-modal" onclick="closeModal(addWordModal)">&times;</span>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <label for="newWord" class="bold">Word:</label>
+                <input type="text" id="newWord" placeholder="Enter word">
+
+                <label for="newTranslation" class="bold">Translation:</label>
+                <input type="text" id="newTranslation" placeholder="Enter translation">
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="saveButton" id="saveWordBtn">Save</button>
+                <button type="button" class="close-modal cancelButton" onclick="closeModal(addWordModal)">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal" id="editModal">
+        <span class="modal-backdrop"></span>
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h2 class="modal-title">Edit Word</h2>
+                <span class="close-modal" onclick="closeModal(editModal)">&times;</span>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <label for="editWord" class="bold">Word:</label>
+                <input type="text" id="editWord" placeholder="Enter word">
+
+                <label for="editTranslation" class="bold">Translation:</label>
+                <input type="text" id="editTranslation" placeholder="Enter translation">
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="saveButton" id="saveEditBtn">Save</button>
+                <button type="button" class="close-modal cancelButton" onclick="closeModal(editModal)">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Practice Modal -->
+    <div class="modal" id="practiceModal">
+        <span class="modal-backdrop"></span>
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h2 class="modal-title">Practice</h2>
+                <span class="close-modal" id="closePracticeButton" onclick="resetPracticeControls(practiceModal)">&times;</span>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <!-- Filter Options -->
+                <p id="filterWordsPrompt">Click "Start Practice" to begin.</p>
+                <div class="filter-word-strength">
+                    <label class="text-spacing" for="filterWordStrength">Choose words to practice:</label>
+                    <select id="filterWordStrength">
+                        <option value="time-for-practice">Time For Practice</option>
+                        <option value="weak">Weak Words</option>
+                        <option value="weak_moderate" selected>Weak & Moderate (Default)</option>
+                        <option value="moderate">Moderate Words</option>
+                        <option value="strong">Strong Words</option>
+                        <option value="all">All Words</option>
+                    </select>
+                </div>
+
+                <!-- Practice Area -->
+                <div id="practiceArea">
+                    <p class="text-spacing" id="startPracticeWordPrompt"></p>
+                    <span class="bold" id="wordToPractice"></span>
+
+                    <input type="text" id="practiceWordPrompt" placeholder="Type your answer here" style="display: none;">
+
+                    <p id="practiceFeedback"></p>
+
+                    <button type="button" id="nextWordBtn" style="display: none;">Next Word</button>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" id="startPracticeBtn">Start Practice</button>
+                <button type="button" id="submitPracticeAnswerBtn" style="display: none;">Submit Answer</button>
+                <button type="button" class="close-modal" id="cancelWord" onclick="resetPracticeControls(practiceModal)">Cancel</button>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <!-- Practice Individual Word Modal -->
+     <div class="modal" id="practiceWordModal">
+        <span class="modal-backdrop"></span>
+         <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h2 class="modal-title">Practice Word</h2>
+                <span class="close-modal" id="closeIndividualModalButton" onclick="closeModal(practiceWordModal)">&times;</span>
+                <span class="close-modal" id="closeIndividualPracticeModalButton" onclick="closePracticeModal(practiceWordModal)" style="display: none;">&times;</span>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <p id="practiceIndividualWordPrompt">Click "Start Practice" to begin.</p>
+                
+                <!-- Practice Area -->
+                <div id="individualPracticeArea" style="display: none;">
+                    <p class="text-spacing" id="practiceWordPrompt">Translate the following word:</p>
+                    <span class="bold" id="individualWordToPractice"></span>
+    
+                    <input type="text" id="practiceIndividualAnswer" placeholder="Type your answer here">
+    
+                    <p id="practiceIndividualFeedback"></p>
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" id="startIndividualPracticeBtn">Start Practice</button>
+                <button type="button" id="submitPracticeIndividualAnswerBtn" style="display: none;">Submit Answer</button>
+                <button type="button" class="close-modal" id="cancelIndividualWord" onclick="closeModal(practiceWordModal)">Cancel</button>
+                <button type="button" class="close-modal" id="cancelIndividualPracticeWord" onclick="closePracticeModal(practiceWordModal)" style="display: none;">Cancel</button>
+            </div>
+         </div>
+     </div>
+
+     <script src="./practiceWords.js"></script>
+     <script src="./practiceIndividualWords.js"></script>
+     <script src="./wordManagement.js"></script>
+     <script src="./main.js"></script>
+</body>
+</html>
